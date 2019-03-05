@@ -64,7 +64,6 @@ class preguntaUsuario extends Controller
         $queryPreguntas = DB::table('preguntas')->where('id_examen',$idExamen)->select('respuesta')->get();
         //consuta todas las respuestas del usuario
         $queryRespuestas = DB::table('respuestas')->where('id_usuario',$idUser)->where('id_examen',$idExamen)->select('respuesta')->get();
-
         //creamos dos arrays para guardar las respuestas correctas de cada pregunta
         $arrayPregunta = array();
         $arrayP = array();
@@ -91,8 +90,8 @@ class preguntaUsuario extends Controller
         //contamos cuantos valores coiinciden entre los valores optenidos de las respuestas correctas de la tabla de preguntas y las de la tabla de respuestas para determinar cuantas respuestas son correctas
         $aciertos = count($arrayResul);
         //se hace la operacion de el total de respuestas menos las respuestas correctas para determinar cuantas respuestas fueron erroneas 
-        $calification = ($aciertos*10)/$totalRespuestas;
         $errores = $totalRespuestas - $aciertos;
+        $calification = ($aciertos*10)/$totalRespuestas;
 
         $calificacion = new Calificacion;
         $calificacion->aciertos = $aciertos;

@@ -10,53 +10,38 @@
     <!-- Main Content -->
     <div id="content">
 
-      <!-- Topbar -->
-      <nav class="navbar navbar-expand topbar mb-4 static-top shadow">
-		    <img src="{{ asset('imagenes/logo.png') }}" alt="">
-        <!-- Topbar Navbar -->
-        <ul class="navbar-nav ml-auto">
-		
-        <!-- Nav Item - User Information -->
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-              <!-- Right Side Of Navbar -->
-              <ul class="navbar-nav ml-auto">
-                  <!-- Authentication Links -->
-                  @guest
-                      <li class="nav-item">
-                          <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                      </li>
-                      @if (Route::has('register'))
-                          <li class="nav-item">
-                              <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                          </li>
-                      @endif
-                  @else
-                      <li class="nav-item dropdown no-arrow">
-                          <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre><strong style="color: #040404" class="caret">{{ Auth::user()->name }} <i class="fas fa-user-tie"></i></strong>
-                          </a>
-
-                          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                              <a class="dropdown-item" href="{{ route('logout') }} "
-                                 onclick="event.preventDefault();
-                                               document.getElementById('logout-form').submit();" style="color: #FD0505">
-                                  {{ __('Cerrar sesión  ') }}<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2"></i>
-                              </a>
-
-                              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                  @csrf
-                              </form>
-                          </div>
-                      </li>
-                  @endguest
-              </ul>
-          </div>
-        </ul>
-
-      </nav>
       <!-- End of Topbar -->
      <div class="container">
-     	<h1>Examen {{ $examen->nombre }}</h1>
+        <div class="row card-header">
+            <div class="col-xl-8">
+              <h1>Examen {{ $examen->nombre }}</h1>
+              <input id="tiempo" type="text" value="{{ $hora_en_segundos }}" hidden>
+              <input id="hr" type="text" value="{{ $hr }}" hidden>
+            </div>
+            <div class="reloj" id="Horas">00</div>
+            <div class="reloj" id="Minutos">:00</div>
+            <div class="reloj" id="Segundos">:00</div>
+            <div class="reloj" id="Centesimas">:00</div>
+            <input type="button" class="boton" id="inicio" value="Start &#9658;" onclick="inicio();">
+            <div class="col-xl-4">
+              <div class="row float-right">
+                <figure class="figure">
+                  <button class="btn btn-primary" type="button" disabled>
+                    <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                    <p class="lead">Tiempo limite: <span class="badge badge-light" id="minutos">{{ $examen->tiempo }}</span></p>
+                  </button>
+                  <figcaption class="figure-caption text-right">
+                    <div class="meter">
+                        <div class="bar">
+                            <span></span>
+                        </div>
+                        <div class="num"></div>
+                    </div>
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+        </div>      
       @if(auth()->user()->id_tipoUsuario != 1)
       	@include('user.preguntas')
       @endif
@@ -65,16 +50,6 @@
 
     </div>
     <!-- End of Main Content -->
-
-    <!-- Footer -->
-    <footer class="sticky-footer bg-white">
-      <div class="container my-auto">
-        <div class="copyright text-center my-auto">
-          <span>Copyright &copy; Your Website 2019</span>
-        </div>
-      </div>
-    </footer>
-    <!-- End of Footer -->
 
   </div>
   <!-- End of Content Wrapper -->

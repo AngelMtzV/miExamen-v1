@@ -17,12 +17,12 @@
 
     </head>
     <body>
-    <nav class="navbar navbar-expand navbar-dark topbar mb-4 static-top shadow" style="background: #4e73df;">
+    <nav class="navbar navbar-expand navbar-dark topbar mb-4 static-top shadow" style="background: #0b385d;">
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <a class="navbar-brand" href="#">
-      <img src="{{ asset('imagenes/logop.png') }}" width="30" height="30" class="d-inline-block align-top" alt="">Consulting & Business Training</a>
+      <img src="{{ asset('imagenes/logo.png') }}" width="200" height="60" class="d-inline-block align-top" alt=""></a><!--<strong style="color: #fff; font-size: larger;">Consulting<sup>BT</strong></sup>-->
 
       <div class="collapse navbar-collapse float-right" style="margin-left: 60%;" id="navbarTogglerDemo03">
         
