@@ -10,7 +10,52 @@
     <div id="content">
       <!-- End of Topbar -->
       <div class="container">
-        <strong><h3>Calificaciones de: <span style="color: #000;">{{$usuario->name}}</span></h3></strong>
+          
+        <div class="row">
+          <div class="col-md-12">
+            <a class="btn btn-info col-md-12" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Información  <i class="fas fa-plus-circle"></i></a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="collapse multi-collapse" id="multiCollapseExample1">
+              <div class="card card-body">
+                <!--Informacion-->
+                <div class="card text-center">
+                  <div class="card-header">
+                    <h1>información de <strong>{{$usuario->usuario}}</strong></h1>
+                  </div>
+                  <div class="card-body">
+                    <h5 class="card-title">Datos</h5>
+                    <div class="row">
+                      <div class="col">
+                        <p class="card-text">ID: <strong style="color: #000;">{{$usuario->id}}</strong></p>
+                        <p class="card-text">Nombre: <strong style="color: #000;">{{$usuario->name}}</strong></p>
+                        <p class="card-text">Usuario: <strong style="color: #000;">{{$usuario->usuario}}</strong></p>
+                        <p class="card-text">Correo electrónico: <strong style="color: #000;">{{$usuario->email}}</strong></p>
+                        <p class="card-text">Telefono: <strong style="color: #000;">{{$usuario->telefono}}</strong></p>
+                        <p class="card-text">Celular: <strong style="color: #000;">{{$usuario->celular}}</strong></p>
+                      </div>
+                      <div class="col">
+                        <p class="card-text">Estado: <strong style="color: #000;">{{$usuario->estado}}</strong></p>
+                        <p class="card-text">Esatdo civil: <strong style="color: #000;">{{$usuario->estado_civil}}</strong></p>
+                        <p class="card-text">Profesión: <strong style="color: #000;">{{$usuario->profesion}}</strong></p>
+                        <p class="card-text">Genero: <strong style="color: #000;">{{$usuario->genero}}</strong></p>
+                        <p class="card-text">Fecha de nacimiento: <strong style="color: #000;">{{$usuario->fecha_nacimiento}}</strong></p>
+                        <p class="card-text">Tipo de usuario: <strong style="color: #000;">{{ $usuario->id_tipoUsuario == 1 ? 'Administrador' : 'Practicante' }}</strong></p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-footer text-muted">
+                    <h4>Examenes contestados: </h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div><br>
+
+        <strong><h3>Calificaciones de: <span style="color: #000;">{{$usuario->usuario}}</span></h3></strong>
         <div class="row">
             <div class="col-md-12">
               <div class="table-responsive">
@@ -35,7 +80,7 @@
                                   <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Examen</a>
                                 </td>
                                 @empty
-                                <h2>Aún no existen registros</h2>
+                                <h4 class="alert alert-danger">El usuario no ha realizado ningún examen</h4>
                             </tr>
                             @endforelse
                         </tbody>

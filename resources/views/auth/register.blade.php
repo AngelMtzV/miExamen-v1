@@ -1,94 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<!--<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
-
-                        <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
-
-                                @if ($errors->has('name'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
-
-                                @if ($errors->has('email'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="opcionTipoUsuario" class="col-md-4 col-form-label text-md-right">{{ __('Tipo de usuario') }}</label>
-
-                            <div class="col-md-6">
-                                <select class="form-control m-bot15" name="opcionTipoUsuario">
-                                  <option selected value="" disabled>Seleccione</option>
-                                  @forelse($tiposDusuarios as $valor)
-                                  <option value="{{ $valor->id }}" >{{ $valor->tipo_usuario }}</option> 
-                                  @empty
-                                  <option>No hay registros</option> 
-                                  @endforelse
-                                </select><br>
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>-->
 <div class="container">
     <div class="card">
         <div class="card-header">
@@ -96,10 +8,11 @@
         </div>
         <div class="card-body">
             <form method="POST" action="{{ route('register') }}">
+              @csrf
               <div class="form-row">
                   <div class="col-md-4 mb-3">
-                    <label for="nombre">Nombre</label>
-                    <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" id="nombre" name="nombre" placeholder="Nombre" required>
+                    <label for="name">Nombre</label>
+                    <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" id="name" name="name" placeholder="Nombre" required>
                     <div class="valid-feedback">
                       @if ($errors->has('name'))
                           <span class="invalid-feedback" role="alert">
@@ -193,7 +106,52 @@
                       <option value="Mujer">Mujer</option>
                     </select>
                   </div>
-
+              </div>
+              <div class="form-row">
+                  <div class="form-group col-md-4">
+                    <label for="fecha_nacimiento">Fecha de nacimiento</label>
+                    <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento">
+                    <div class="invalid-feetback">
+                        @if ($errors->has('fecha_nacimiento'))
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('fecha_nacimiento') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label for="estado_civil">Estado civil</label>
+                    <select id="estado_civil" name="estado_civil" class="form-control">
+                      <option selected disabled>Elija...</option>
+                      <option value="Soltero/a">Soltero/a</option>
+                      <option value="Casado/a">Casado/a</option>
+                      <option value="Comprometido/a">Comprometido/a</option>
+                      <option value="Unión libre">Unión libre</option>
+                      <option value="Separado/a">Separado/a</option>
+                      <option value="Divorciado/a">Divorciado/a</option>
+                      <option value="Viudo/a">Viudo/a</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-4">
+                      <label for="id_tipoUsuario">{{ __('Tipo de usuario') }}</label>
+                      <select id="id_tipoUsuario" name="id_tipoUsuario" class="form-control">
+                          <option selected disabled>Elija...</option>
+                          @forelse($tiposDusuarios as $valor)
+                          @if($valor->id != 1)
+                          <option value="{{ $valor->id }}" >{{ $valor->tipo_usuario }}</option> 
+                          @endif
+                          @empty
+                          <option>No hay registros</option> 
+                          @endforelse
+                      </select>
+                      <div class="invalid-feetback">
+                          @if ($errors->has('carrera'))
+                              <span class="invalid-feedback" role="alert">
+                                  <strong>{{ $errors->first('carrera') }}</strong>
+                              </span>
+                          @endif
+                      </div>
+                  </div>
               </div>
               <div class="form row">
                   <div class="form-group col-md-6">
@@ -240,8 +198,8 @@
                         @endif
                     </div>
                   <div class="form-group col-md-6">
-                      <label for="profecion">{{ __('Profeción') }}</label>
-                      <select id="profecion" name="profecion" class="form-control">
+                      <label for="profesion">{{ __('Profesión') }}</label>
+                      <select id="profesion" name="profesion" class="form-control">
                           <option selected>Elija...</option>
                           <option value="Analista de Sistemas">Analista de Sistemas</option>
                           <option value="Programación Web">Programación Web</option>
@@ -276,7 +234,7 @@
               </div><hr>
               <div class="container float-right">
                 <div class="text-center my-auto float-right">
-                    <a type="submit" id="enviar" class="btn btn-primary"><strong style="color: #fff;">Registrar  <i class="fas fa-save"></i></strong></a>
+                  <button type="submit" class="btn btn-primary">Registrar  <i class="fas fa-save"></i></button>
                 </div>
               </div>
             </form>

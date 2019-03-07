@@ -16,7 +16,7 @@ class AddVotesToUsersTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->string('apellidos');
             $table->string('usuario');
-            $table->string('profecion');
+            $table->string('profesion');
             $table->integer('telefono');
             $table->string('celular');
             $table->string('estado');

@@ -70,10 +70,10 @@
         <!-- Main Content -->
         <div id="content">
           <!-- Topbar -->
-          <nav class="navbar navbar-expand navbar-dark topbar mb-4 static-top shadow" style="background: #29292A;">
+          <nav class="navbar navbar-expand navbar-dark topbar mb-4 static-top shadow" style="background: #0b385d;">
             <!-- Topbar Navbar -->
             <ul class="navbar">
-              <img src="{{ asset('imagenes/logo.png') }}" alt="">
+              <a href="{{ route('home')}}"><img src="{{ asset('imagenes/logo.png') }}" alt=""></a>
             </ul>
             <ul class="navbar-nav ml-auto">
             <!-- Nav Item - User Information -->
