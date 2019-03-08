@@ -21,7 +21,7 @@
         <!-- Card Header - Dropdown -->
           <div class="card shadow mb-4">
             <div class="card-header bg-primary py-3">
-              <h6 style="color: #fff;">Listado de Examenes</h6>
+              <h6 style="color: #fff;"><i class="fas fa-th-list"></i> Listado de Examenes</h6>
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -51,7 +51,7 @@
                                 @include('user.modales.deshabilitado')
                                 @include('user.modales.contestado')
                                 @empty
-                                <h2>Aún no existen registros</h2>
+                                <h4 class="alert alert-info"><i class="fas fa-info-circle"></i> Aún no existen registros</h4>
                             </tr>
                           @endforelse
                         </tbody>
@@ -65,7 +65,7 @@
         <!-- Card Header - Dropdown -->
           <div class="card shadow mb-4">
             <div class="card-header text_white bg-primary py-3">
-              <h6 style="color: #fff;">Listado de Examenes Contestados</h6>
+              <h6 style="color: #fff;"><i class="fas fa-th-list"></i> Listado de Examenes Contestados</h6>
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -87,7 +87,7 @@
                           </td>    
                           @include('user.modales.contestado')
                           @empty
-                          <h2>Aún no existen registros</h2>
+                          <h4 class="alert alert-info"><i class="fas fa-info-circle"></i> Aún no has realizado ningún examen</h4>
                       </tr>
                     @endforelse
                   </tbody>

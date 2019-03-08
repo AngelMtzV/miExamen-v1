@@ -67,7 +67,6 @@ class HomeController extends Controller
             $exaContestados[]= Examen::where('id',$value)->get();
         }
 
-        
         return view('home',compact('usuarios', 'examenes','exaContestados','exaNoContestados','arrayExaContes','arrayAllExa'));
     }
 
@@ -82,7 +81,7 @@ class HomeController extends Controller
         $hora_en_segundos = ($horas * 3600 ) + ($minutos * 60 ) + $segundos;
         $min = $hora_en_segundos/60;
         $hr = $min/60;
-        return view('user.examen', compact('preguntas','examen','cont','hora_en_segundos','hr'));
+        return view('user.examen', compact('preguntas','examen','cont','hora_en_segundos','horas','minutos','segundos'));
     }
 
     public function preguntas(){

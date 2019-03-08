@@ -31,11 +31,10 @@
                             <tr>
                                 <td><i class="fas fa-user-alt"></i> {{ $user->name }}</td>
                                 <td><i class="fas fa-envelope-square"></i> {{ $user->email }}</td>
-                                <td>
-                                  <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-eye"></i> Ver</a>
+                                <td style="align-content: center;">
+                                  <a href="{{ route('examenesAdmin.show',$user->id) }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-clipboard-list"></i> Calificaciones</a>
                                   <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-warning shadow-sm"><i class="fas fa-edit"></i> Editar</a>
                                   <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-trash-alt"></i> Eliminar</a>
-                                  <a href="{{ route('examenesAdmin.show',$user->id) }}" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm"><i class="fas fa-clipboard-list"></i> Calificaciones</a>
                                 </td>@endif
                                 @empty
                                 <h2>Aún no existen registros</h2>

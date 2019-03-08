@@ -61,6 +61,7 @@ class examenAdminController extends Controller
         ->join('examens','examens.id','=','calificacions.id_examen')
         ->where('id_usuario',$id)
         ->get();
+        dd($consulta);
         $usuario = User::find($id);
         return view('admin.resultadosExamen',compact('consulta','usuario'));
     }
@@ -73,7 +74,7 @@ class examenAdminController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('admin.examen');
     }
 
     /**

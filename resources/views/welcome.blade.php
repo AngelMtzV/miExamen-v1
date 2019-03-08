@@ -17,41 +17,23 @@
 
     </head>
     <body>
-    <nav class="navbar navbar-expand navbar-dark topbar mb-4 static-top shadow" style="background: #0b385d;">
+    <nav id="navegador" class="navbar navbar-expand navbar-dark topbar mb-4 static-top shadow" style="background: #0b385d; height: 12%">
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <a class="navbar-brand" href="#">
-      <img src="{{ asset('imagenes/logo.png') }}" width="200" height="60" class="d-inline-block align-top" alt=""></a><!--<strong style="color: #fff; font-size: larger;">Consulting<sup>BT</strong></sup>-->
+      <img src="{{ asset('imagenes/logocbt2.png') }}" width="110" height="100" class="d-inline-block align-top" alt=""></a><!--<strong style="color: #fff; font-size: larger;">Consulting<sup>BT</strong></sup>-->
 
-      <div class="collapse navbar-collapse float-right" style="margin-left: 60%;" id="navbarTogglerDemo03">
-        
-        <form class="form-inline my-2 my-lg-0 float-right">
-          <ul class="navbar-nav mr-auto mt-2 mt-lg-0 float-right">
-            @if (Route::has('login'))
-                @auth
-                <li class="nav-item">
-                    <a class="nav-link licks" href="{{ url('/home') }}">Inicio</a>
-                </li>
-                @else
-                <li class="nav-item">
-                    <a class="nav-link links" href="{{ route('login') }}">Ingresar</a>
-                </li>
-                    @if (Route::has('register'))
-                <li class="nav-item">
-                        <a class="nav-link links" href="{{ route('register') }}">Registrarse</a>
-                </li>
-                    @endif
-                @endauth
-            @endif
-          </ul>
-        </form>
-      </div>
+      <ul class="navbar-nav ml-auto">
+          <div class="dropdown-menu-right">
+            @yield('content')
+          </div>
+      </ul>
     </nav>
     
     <div id="app">
         <main>
-            @yield('content')
+            
         </main>
     </div>
 

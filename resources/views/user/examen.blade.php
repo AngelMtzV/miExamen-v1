@@ -15,37 +15,32 @@
         <div class="row card-header">
             <div class="col-xl-8">
               <h1>Examen {{ $examen->nombre }}</h1>
-              <input id="tiempo" type="text" value="{{ $hora_en_segundos }}" hidden>
-              <input id="hr" type="text" value="{{ $hr }}" hidden>
+              <input id="horas" type="text" value="{{ $horas }}" hidden>
+              <input id="minutos" type="text" value="{{ $minutos }}" hidden>
+              <input id="segundos" type="text" value="{{ $segundos }}" hidden>
             </div>
-            <div class="reloj" id="Horas">00</div>
-            <div class="reloj" id="Minutos">:00</div>
-            <div class="reloj" id="Segundos">:00</div>
-            <div class="reloj" id="Centesimas">:00</div>
-            <input type="button" class="boton" id="inicio" value="Start &#9658;" onclick="inicio();">
             <div class="col-xl-4">
               <div class="row float-right">
                 <figure class="figure">
                   <button class="btn btn-primary" type="button" disabled>
                     <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
-                    <p class="lead">Tiempo limite: <span class="badge badge-light" id="minutos">{{ $examen->tiempo }}</span></p>
+                    <div class="container">
+                      <div class="row">
+                          <h5 class="tiempo">Tiempo: </h5><h5 id="Horas">00</h5><h5 id="Minutos">:00</h5><h5 id="Segundos">:00</h5><h5 id="Centesimas" hidden>:00</h5>
+                      </div>
+                    </div>
                   </button>
                   <figcaption class="figure-caption text-right">
-                    <div class="meter">
-                        <div class="bar">
-                            <span></span>
-                        </div>
-                        <div class="num"></div>
-                    </div>
+                    <p>Tiempo limite: {{ $examen->tiempo }}</p>
                   </figcaption>
                 </figure>
               </div>
             </div>
         </div>      
-      @if(auth()->user()->id_tipoUsuario != 1)
-      	@include('user.preguntas')
-      @endif
-      </div>
+        @if(auth()->user()->id_tipoUsuario != 1)
+        	@include('user.preguntas')
+        @endif
+     </div>
       <br><hr>
 
     </div>

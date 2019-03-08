@@ -6,38 +6,65 @@ $(function(){
             }
         },
     });
-
-    // modificar aquí la cantidad de segundos y en el stilo .start
-    var tiempo = $('#tiempo').val();
-    var contador=tiempo;  
-    setTimeout(()=>{
-        document.querySelector(".meter .bar span").style.display="block";
-        document.querySelector(".meter .bar span").classList.add("start");
-        //document.querySelector(".meter .num").innerHTML=contador;
-        var interval=setInterval(()=>{
-            contador--;
-            //document.querySelector(".meter .num").innerHTML=contador;
-            if(contador<=0)
-            {
-                clearInterval(interval);
-                finalCuentaAtras();
-            }
-        },1000);
-    },500);
-     
-    function finalCuentaAtras() {
-        alert("ha finalizado la cuenta atras");
-    }
 });
 
+//Este es el script para el cronometro de los examenes
+var hr = $('#horas').val();
+var mn = $('#minutos').val();
+var sg = $('#segundos').val();
 
+var centesimas = 0;
+var segundos = 0;
+var minutos = 0;
+var horas = 0;
+
+function inicio () {
+ control = setInterval(cronometro,10);
+}
+function cronometro () {
+ if (centesimas < 99) {
+  centesimas++;
+  if (centesimas < 10) { centesimas = "0"+centesimas }
+  Centesimas.innerHTML = ":"+centesimas;
+ }
+ if (centesimas == 99) {
+  centesimas = -1;
+ }
+ if (centesimas == 0) {
+  segundos ++;
+  if (segundos < 10) { segundos = "0"+segundos }
+  Segundos.innerHTML = ":"+segundos;
+ }
+ if (segundos == 59) {
+  segundos = -1;
+ }
+ if ( (centesimas == 0)&&(segundos == 0) ) {
+  minutos++;
+  if (minutos < 10) { minutos = "0"+minutos }
+  Minutos.innerHTML = ":"+minutos;
+ }
+ if (minutos == 59) {
+  minutos = -1;
+ }
+ if ( (centesimas == 0)&&(segundos == 0)&&(minutos == 0) ) {
+  horas ++;
+  if (horas < 10) { horas = "0"+horas }
+  Horas.innerHTML = horas;
+ }
+  if ( (centesimas == 0)&&(segundos == sg)&&(minutos == mn)&&(horas == hr) ) {
+  clearInterval(control);
+  alert("tu tiempo se agoto.")
+  document.getElementById('formid').submit();
+ }
+}
+//FIN del script para el cronometro de los examenes
 function carga()
 {
 	var cronometro=0;
     contador_s =0;
     contador_m =0;
     s = document.getElementById("segundos");
-    m = document.getElementById("minutos");  
+    m = document.getElementById("minutos"); 
     cronometro = setInterval(
         function(){
             if(contador_s==60)
