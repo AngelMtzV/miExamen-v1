@@ -34,26 +34,30 @@
         <!-- Main Content -->
         <div id="content">
           <!-- Topbar -->
-          <nav id="navegador" class="navbar navbar-expand navbar-dark topbar mb-4 static-top shadow" style="background: #0b385d;">
-            <!-- Topbar Navbar -->
-            <ul class="navbar">
-              <a href="{{ route('home')}}"><img src="{{ asset('imagenes/logo.png') }}" alt=""></a>
-            </ul>
-            <ul class="navbar-nav ml-auto">
-            <!-- Nav Item - User Information -->
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                @if(Auth::user()->id_tipoUsuario == 1)
-                  <li class="nav-item">
-                    <a href="" class="nav-item nav-link text-white">Resultados generales</a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="" class="nav-item nav-link text-white">Examenes</a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="" class="nav-item nav-link text-white">Usuarios</a>
-                  </li>
-                  @endif
-                  <!-- Right Side Of Navbar -->
+          <!-- Just an image -->
+          <nav id="navegador" class="navbar navbar-expand-lg navbar-dark " style="background: #0b385d;">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+              <a class="navbar-brand" href="{{ route('home')}}"><img src="{{ asset('imagenes/logo.png') }}"></a>
+              @if(Auth::user()->id_tipoUsuario == 1)
+              <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('home')}}">Inicio <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Resultados generales</a>
+                </li>
+                <li class="nav-item @yield('botonNavExamenes')">
+                  <a class="nav-link" href="{{ route('examenesAdmin.create') }}">Examenes</a>
+                </li>
+                <li class="nav-item @yield('botonNavUsuarios')"> 
+                  <a class="nav-link" href="{{ route('register') }}">Usuarios</a>
+                </li>
+                @endif
+              </ul>
+              <!-- Right Side Of Navbar -->
                   <ul class="navbar-nav ml-auto" style="padding-left: 10%;">
                       <!-- Authentication Links -->
                       @guest
@@ -67,7 +71,7 @@
                           @endif
                       @else
                           <li class="nav-item dropdown no-arrow">
-                              <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre><strong class="caret" style="color: #fff">{{ Auth::user()->name }} <i class="fas fa-user-tie"></i></strong>
+                              <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre><strong class="caret" style="color: #fff">{{ Auth::user()->usuario }} <i class="fas fa-user-tie"></i></strong>
                               </a>
 
                               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -84,10 +88,8 @@
                           </li>
                       @endguest
                   </ul>
-              </div>
-            </ul>
-
-          </nav>
+            </div>
+          </nav><br>
           <!-- End of Topbar -->
     <div id="app">
         <main>
@@ -95,16 +97,27 @@
         </main>
     </div>
 
-    
-        <!-- Footer -->
-        <footer class="sticky-footer bg-dark" style="margin-top: 90%;">
-          <div class="container my-auto" >
-            <div class="copyright text-center my-auto">
-              <span style="color: #fff;">Copyright &copy; Your Website 2019</span>
+        <footer class="sticky-footer bg-dark" style="margin-top: 30%;">
+          <div class="container">
+            <div class="row">
+              <div class="col">
+                <address class="text-white">
+                  <p>
+                    Ofrecemos soluciones de tecnología de la información, enfocadas a satisfacer las necesidades de desarrollo, implantación y soporte de su empresa, para garantizar que nuestro equipo sabrá entender y ofrecer la mejor solución tecnológica en JAVA y .NET, para su empresa.
+                  </p>
+                </address>
+              </div>
+              <div class="col">
+                <ul class="navbar-nav ml-auto">
+                  <li class="nav-item text-white">Colonia el Carmen. Puebla, Puebla. </li>
+                  <li class="nav-item text-white">15 Poniente No. 120, Despacho 103, 104 </li>
+                  <li class="nav-item text-white">Telefono: 222 - 7986359 </li>
+                  <li class="nav-item text-white"><a href="/drinks">Email: capitalhumano@candbt.com</a></li>
+                </ul>
+              </div>
             </div>
           </div>
         </footer>
-        <!-- End of Footer -->
 
       </div>
       <!-- End of Content Wrapper -->
@@ -141,12 +154,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     
-
+    <!-- plugin para la app-->
     <script type="text/javascript" src="{{ asset('js/welcome.js') }}"></script>
-    <script src="{{asset('js/Cronometro.js')}}"></script>
-    <script src="{{ asset('js/script.js') }}"></script>
-    <!-- plugin para las tablas 
-    <script type="text/javascript" src="{{ asset('js/datatables.min.js') }}"></script>-->
+    <!-- plugin para las graficas-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>
+    <!-- FIN del plugin para las graficas-->
 
     <!-- script para iniciar el plugin de la tabla -->
     <script type="text/javascript" src="{{ asset('DataTables/js/jquery.datatables.min.js') }}"></script>

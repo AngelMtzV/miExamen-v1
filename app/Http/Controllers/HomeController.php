@@ -29,7 +29,7 @@ class HomeController extends Controller
     public function index()
     {
         $idUser = auth()->user()->id;
-        $examenes = Examen::orderBy('created_at', 'desc')->paginate(4);
+        $examenes = Examen::orderBy('created_at', 'desc')->get();
         $Allexamenes = Examen::orderBy('created_at', 'desc')->get();
         $usuarios = User::get();
 
@@ -49,6 +49,7 @@ class HomeController extends Controller
 
             and examens.id and calificacions.id_examen = ?
             and examens.id = calificacions.id_examen;',[$idUser,$value->id]);
+            
             if ($consulta != []) {
                 $arrayExaContes[]=$consulta[0]->idExamen;
             }

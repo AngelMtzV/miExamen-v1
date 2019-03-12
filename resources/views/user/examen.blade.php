@@ -14,7 +14,7 @@
      <div class="container">
         <div class="row card-header">
             <div class="col-xl-8">
-              <h1>Examen {{ $examen->nombre }}</h1>
+              <h1>Examen: {{ $examen->nombre }}</h1>
               <input id="horas" type="text" value="{{ $horas }}" hidden>
               <input id="minutos" type="text" value="{{ $minutos }}" hidden>
               <input id="segundos" type="text" value="{{ $segundos }}" hidden>

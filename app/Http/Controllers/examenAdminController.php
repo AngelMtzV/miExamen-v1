@@ -9,6 +9,11 @@ use App\Respuesta;
 use App\Pregunta;
 use App\Calificacion;
 use App\User;
+use App\Imagen;
+use App\Estado;
+use App\Charts\calificacionesUsers;
+use Session;
+use Validator;
 
 class examenAdminController extends Controller
 {
@@ -34,7 +39,8 @@ class examenAdminController extends Controller
      */
     public function create()
     {
-        //
+        $estado = Estado::get();
+        return view('admin.examenes.addExamen', compact('estado'));
     }
 
     /**
@@ -45,7 +51,29 @@ class examenAdminController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nombre' => 'required',
+            'descripcion' => 'required',
+            'no_preguntas' => 'required',
+            'fecha' => 'required',
+            'tiempo' => 'required',
+            'id_estado' => 'required',
+        ]);
+        
+        //se crea una nueva asignatura
+        $examen =  new Examen;
+        $examen->nombre = $request->get('nombre');
+        $examen->descripcion = $request->get('descripcion');
+        $examen->no_preguntas = $request->get('no_preguntas');
+        $examen->fecha = $request->get('fecha');
+        $examen->tiempo = $request->get('tiempo');
+        $examen->id_estado = $request->get('id_estado');
+        //Se guardan los datos
+        //dd($examen);
+        $examen->save();
+        Session::flash('message','Examen agregado');
+        //return back()->with('message','Los datos se han guardado correctamente.');
+        return redirect()->route('home');
     }
 
     /**
@@ -61,9 +89,31 @@ class examenAdminController extends Controller
         ->join('examens','examens.id','=','calificacions.id_examen')
         ->where('id_usuario',$id)
         ->get();
-        dd($consulta);
-        $usuario = User::find($id);
-        return view('admin.resultadosExamen',compact('consulta','usuario'));
+        //dd($consulta);
+        if ($consulta != []) {
+            $usuario = User::find($id);
+            $aciertos = array();
+            $errores = array();
+            /*foreach ($consulta as $key => $value) {
+                $aciertos[] =$value->aciertos;
+                $errores[] =$value->errores;
+            }
+            dd($aciertos);*/
+            $aciertos = $consulta[0]->aciertos;
+            $errores = $consulta[0]->errores;
+
+            $chart = new calificacionesUsers;
+            $chart->labels(['Aciertos', 'Errores']);
+
+            $dataset = $chart->dataset('Mi calificacion', 'pie', [$aciertos, $errores]);
+            $dataset->backgroundColor(collect(['#1129BB','#8A0202']));
+            $dataset->color(collect(['#1129BB','#8A0202']));
+
+            return view('admin.resultadosExamen',compact('consulta','usuario','chart'));
+        }elseif ($consulta == []) {
+            Session::flash('error','El usuario aún no realiza ningun examen');
+            return redirect()->route('home');
+        }
     }
 
     /**
@@ -74,7 +124,8 @@ class examenAdminController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.examen');
+        $imagenes = Imagen::all();
+        return view('admin.examen',compact('imagenes'));
     }
 
     /**

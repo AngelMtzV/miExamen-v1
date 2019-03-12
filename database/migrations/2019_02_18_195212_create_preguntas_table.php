@@ -16,11 +16,14 @@ class CreatePreguntasTable extends Migration
         Schema::create('preguntas', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
+            $table->string('imagen', 500);
             $table->string('pregunta', 500);
             $table->string('opcion1', 500);
             $table->string('opcion2', 500);
             $table->string('opcion3', 500);
             $table->string('opcion4', 500);
+            $table->string('opcion5', 500);
+            $table->string('opcion6', 500);
             $table->integer('respuesta');
             //Agregar llave foranea de la tabla examen para saber a que examen pertenece la pregunta
             $table->integer('id_examen')->unsigned()->nullable();

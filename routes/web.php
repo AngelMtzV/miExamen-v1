@@ -25,4 +25,5 @@ Route::resource('preguntas', 'preguntaUsuario');
 //rutas para ver los resultados
 Route::resource('examenesAdmin', 'examenAdminController');
 
-
+Route::get('preguntasAdmin/{id}', 'adminPreguntasExamen@crear')->name('preguntasAdmin');
+Route::resource('preguntasAdmin', 'adminPreguntasExamen');

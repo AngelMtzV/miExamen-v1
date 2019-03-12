@@ -1,7 +1,7 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
-  <!-- Page Heading -->
+  <!-- Page Heading 
     <div class="col-md-12">
         <div class="card-body">
             @if (session('message'))
@@ -10,7 +10,7 @@
                 </div>
             @endif
         </div>
-    </div>
+    </div>-->
 
   <!-- Content Row -->
 

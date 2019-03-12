@@ -11,7 +11,13 @@
 		<div class="card">
 		  <div class="card-header primary" style="background-color: #4e73df">
 		    <strong><pre style="color: #fff">{{ $cont }}.-{{ $pregunta->pregunta }}</pre></strong>
+		    
 		  </div>
+		  @if($pregunta->imagen != "")
+		  	<div class="container">
+		  		<img src="{{ asset('img/'.$pregunta->imagen) }}" width="300" height="200">
+		  	</div>
+		  @endif
 		  <div class="card-body">
 		    <div class="form-group form-check">
 	          <input value="1"  type="radio" class="form-check-input option-input radio" name="radio{{ $pregunta->id }}[]" id="Check" checked>
@@ -28,6 +34,14 @@
 		    <div class="form-group form-check">
 	          <input value="4" type="radio" class="form-check-input option-input radio" name="radio{{ $pregunta->id }}[]" id="Check">
 		      <label class="form-check-label" for="exampleCheck4"><pre> {{ $pregunta->opcion4 }}</pre></label>
+	        </div>
+	        <div class="form-group form-check">
+	          <input value="5" type="radio" class="form-check-input option-input radio" name="radio{{ $pregunta->id }}[]" id="Check">
+		      <label class="form-check-label" for="exampleCheck5"><pre> {{ $pregunta->opcion5 }}</pre></label>
+	        </div>
+	        <div class="form-group form-check">
+	          <input value="6" type="radio" class="form-check-input option-input radio" name="radio{{ $pregunta->id }}[]" id="Check">
+		      <label class="form-check-label" for="exampleCheck6"><pre> {{ $pregunta->opcion6 }}</pre></label>
 	        </div>
 		  </div>
 		</div><hr>

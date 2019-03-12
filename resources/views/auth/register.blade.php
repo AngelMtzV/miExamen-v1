@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('botonNavUsuarios')
+{{ 'active' }}
+@endsection
+
 @section('content')
 <div class="container">
     <div class="card">
@@ -145,9 +149,9 @@
                           @endforelse
                       </select>
                       <div class="invalid-feetback">
-                          @if ($errors->has('carrera'))
+                          @if ($errors->has('id_tipoUsuario'))
                               <span class="invalid-feedback" role="alert">
-                                  <strong>{{ $errors->first('carrera') }}</strong>
+                                  <strong>{{ $errors->first('id_tipoUsuario') }}</strong>
                               </span>
                           @endif
                       </div>

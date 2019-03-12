@@ -17,19 +17,18 @@
 
     </head>
     <body>
-    <nav id="navegador" class="navbar navbar-expand navbar-dark topbar mb-4 static-top shadow" style="background: #0b385d; height: 12%">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+    <nav class="navbar navbar-expand-lg navbar-dark " style="background: #0b385d;">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <a class="navbar-brand" href="#">
-      <img src="{{ asset('imagenes/logocbt2.png') }}" width="110" height="100" class="d-inline-block align-top" alt=""></a><!--<strong style="color: #fff; font-size: larger;">Consulting<sup>BT</strong></sup>-->
-
-      <ul class="navbar-nav ml-auto">
-          <div class="dropdown-menu-right">
-            @yield('content')
-          </div>
-      </ul>
-    </nav>
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+        <a class="navbar-brand" href="{{ route('home')}}"><img src="{{ asset('imagenes/logo.png') }}"></a>
+        <!-- Right Side Of Navbar -->
+            <ul class="navbar-nav ml-auto">
+                @yield('content')
+            </ul>
+      </div>
+    </nav><br>
     
     <div id="app">
         <main>

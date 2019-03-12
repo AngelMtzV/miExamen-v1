@@ -33,6 +33,11 @@ body {
 /*fin del estilo para la barra de navegacion*/
 /*fin del estilo para la barra de navegacion*/
 
+.botonesTablas{
+  width: 100px;
+  height: 30px;
+}
+
 /*Inicio del estilo para los radio buttons de las preguntas*/
 /*Inicio del estilo para los radio buttons de las preguntas*/
 .full-height {

@@ -6,6 +6,7 @@ $(function(){
             }
         },
     });
+  graficar();
 });
 
 //Este es el script para el cronometro de los examenes

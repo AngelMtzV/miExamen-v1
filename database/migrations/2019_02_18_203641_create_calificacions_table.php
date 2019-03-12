@@ -18,7 +18,7 @@ class CreateCalificacionsTable extends Migration
             $table->timestamps();
             $table->integer('aciertos');
             $table->integer('errores');
-            $table->integer('resultado');
+            $table->decimal('resultado');
             //Agregar llave foranea de la tabla users para saber a que usuario pertenece la calificacion
             $table->integer('id_usuario')->unsigned()->nullable();
             $table->foreign('id_usuario')->references('id')->on('users')->onDelete('set null'); 

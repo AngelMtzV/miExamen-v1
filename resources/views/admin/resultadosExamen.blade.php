@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('botonNavUsuarios')
+{{ 'active' }}
+@endsection
+
 @section('content')
 <!-- Page Wrapper -->
 <div id="wrapper">
@@ -13,7 +17,7 @@
           
         <div class="row">
           <div class="col-md-12">
-            <a class="btn btn-primary col-md-12" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Información  <i class="fas fa-plus-circle"></i></a>
+            <a data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Información  <i class="fas fa-plus-circle"></i></a>
           </div>
         </div>
         <div class="row">
@@ -89,31 +93,15 @@
             </div>
         </div>
         
-        <div class="row">
-          <div class="col-md-12">
-            <a class="btn btn-primary col-md-12" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Examen  <i class="fas fa-plus-circle"></i></a>
+
+        <div class="container">
+          <div id="app">
+            
+            {!! $chart->container() !!}
           </div>
+          <canvas id="miGrafico"></canvas>
         </div>
-        <div class="row">
-          <div class="col">
-            <div class="collapse multi-collapse" id="multiCollapseExample1">
-              <div class="card card-body">
-                <!--Informacion-->
-                <div class="card text-center">
-                  <div class="card-header">
-                    <h1>información de <strong>{{$usuario->usuario}}</strong></h1>
-                  </div>
-                  <div class="card-body">
-                    <h5 class="card-title">Datos</h5>
-                  </div>
-                  <div class="card-footer text-muted">
-                    <h4>Examenes contestados: </h4>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div><br>
+        
       </div>
     </div>
     <!-- End of Main Content -->
@@ -123,5 +111,5 @@
 
 </div><br>
 <!-- End of Page Wrapper -->
-
+{!! $chart->script() !!}
 @endsection
