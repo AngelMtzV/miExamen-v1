@@ -21,20 +21,20 @@
     <!-- Style para el plugin de las tablas-->
     <link rel="stylesheet" type="text/css" href="{{ asset('DataTables/css/dataTables.bootstrap.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{ asset('DataTables/css/dataTables.bootstrap4.min.css') }}"/>
+    <!-- Style para la aplicacions-->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/welcome.css') }}"/>
+    <!-- Style para los mensajes-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+    <link rel="stylesheet" href="{{ asset('sweetalert/sweetalert2.css') }}">
+    <link rel=”stylesheet” href="{{ asset('sweetalert/sweetalert2.min.css') }}">
+    
 </head>
-<body id="page-top" onload="inicio()">
-    <!-- Page Wrapper -->
+<body id="page-top">
     <div id="wrapper">
       <!-- Si quiero menu lateral ponerlo aquí -->
-
       <!-- Si quiero menu lateral ponerlo aquí -->
-      <!-- Content Wrapper -->
       <div id="content-wrapper" class="d-flex flex-column">
-        <!-- Main Content -->
         <div id="content">
-          <!-- Topbar -->
-          <!-- Just an image -->
           <nav id="navegador" class="navbar navbar-expand-lg navbar-dark " style="background: #0b385d;">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
@@ -43,18 +43,31 @@
               <a class="navbar-brand" href="{{ route('home')}}"><img src="{{ asset('imagenes/logo.png') }}"></a>
               @if(Auth::user()->id_tipoUsuario == 1)
               <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                <li class="nav-item">
-                  <a class="nav-link" href="{{ route('home')}}">Inicio <span class="sr-only">(current)</span></a>
+                <!--Opciones para los USUARIOS-->
+                <li class="nav-item dropdown @yield('botonNavUsuarios')">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Usuarios</a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{ route('home') }}">Listado de Usuarios</a>
+                    <a class="dropdown-item" href="{{ route('register') }}">Agregar</a>
+                  </div>
+                </li>
+                <!--Opciones para los EXAMENES-->
+                <li class="nav-item dropdown @yield('botonNavExamenes')">
+                  <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Examenes</a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a  class="dropdown-item" href="{{ route('examenesAdmin.index') }}">Listado de Examenes</a>
+                    <a class="dropdown-item" href="{{ route('examenesAdmin.create') }}">Agregar</a>
+                  </div>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="#">Resultados generales</a>
                 </li>
-                <li class="nav-item @yield('botonNavExamenes')">
+                <!--<li class="nav-item @yield('botonNavExamenes')">
                   <a class="nav-link" href="{{ route('examenesAdmin.create') }}">Examenes</a>
                 </li>
                 <li class="nav-item @yield('botonNavUsuarios')"> 
                   <a class="nav-link" href="{{ route('register') }}">Usuarios</a>
-                </li>
+                </li>-->
                 @endif
               </ul>
               <!-- Right Side Of Navbar -->
@@ -90,13 +103,12 @@
                   </ul>
             </div>
           </nav><br>
-          <!-- End of Topbar -->
     <div id="app">
         <main>
+            @include('layouts.mensajes')
             @yield('content')
         </main>
     </div>
-
         <footer class="sticky-footer bg-dark" style="margin-top: 30%;">
           <div class="container">
             <div class="row">
@@ -120,14 +132,7 @@
         </footer>
 
       </div>
-      <!-- End of Content Wrapper -->
     </div>
-    <!-- End of Page Wrapper -->
-
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-      <i class="fas fa-angle-up"></i>
-    </a>
 
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -149,24 +154,6 @@
     </div>
 
     <!--Scripts de bootstrap-ajax y jquery-->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="{{ asset('js/jquery-3.3.1.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    
-    <!-- plugin para la app-->
-    <script type="text/javascript" src="{{ asset('js/welcome.js') }}"></script>
-    <!-- plugin para las graficas-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>
-    <!-- FIN del plugin para las graficas-->
-
-    <!-- script para iniciar el plugin de la tabla -->
-    <script type="text/javascript" src="{{ asset('DataTables/js/jquery.datatables.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('DataTables/js/datatables.bootstrap4.min.js') }}"></script>
-    <script>
-        $(document).ready(function() {
-            $('#example').DataTable();
-        } );
-    </script>
+    @include('layouts.scripts')
 </body>
 </html>

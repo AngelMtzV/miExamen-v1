@@ -14,7 +14,7 @@ use App\Estado;
 use App\Charts\calificacionesUsers;
 use Session;
 use Validator;
-
+use Alert;
 class examenAdminController extends Controller
 {
     /**
@@ -22,14 +22,12 @@ class examenAdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    #Metodo para mostrar el listado de examenes
     public function index()
     {
-        /*$consulta = DB::table('examens')
-        ->join('users','users.id','=','.id_profesor')
-        ->join('programa_educativo','programa_educativo.id','=','carga_horaria.id_programa_educativo')
-        ->get();*/
-        //Consulta tosas las preguntas
-
+        #se realiza una consulta a la entidad examenes para trarer todos su registros
+        $examenes = Examen::get();
+        return view('admin.listExamen', compact('examenes'));
     }
 
     /**
@@ -37,6 +35,7 @@ class examenAdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    #metodo que nos manda a la vista donde colocaremos los datos para un nuevo examen
     public function create()
     {
         $estado = Estado::get();
@@ -49,8 +48,10 @@ class examenAdminController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    #metodo para crear un nuevo examen
     public function store(Request $request)
     {
+        #primero validamos los campos
         $request->validate([
             'nombre' => 'required',
             'descripcion' => 'required',
@@ -59,7 +60,7 @@ class examenAdminController extends Controller
             'tiempo' => 'required',
             'id_estado' => 'required',
         ]);
-        
+        #después de ser validados 
         //se crea una nueva asignatura
         $examen =  new Examen;
         $examen->nombre = $request->get('nombre');
@@ -69,11 +70,10 @@ class examenAdminController extends Controller
         $examen->tiempo = $request->get('tiempo');
         $examen->id_estado = $request->get('id_estado');
         //Se guardan los datos
-        //dd($examen);
         $examen->save();
-        Session::flash('message','Examen agregado');
-        //return back()->with('message','Los datos se han guardado correctamente.');
-        return redirect()->route('home');
+        Alert::success('El examen se creo correctamente', '¡Éxito!')->autoclose(6000);
+        //Session::flash('message','Examen agregado corectamente');
+        return redirect()->route('examenesAdmin.index');
     }
 
     /**
@@ -82,15 +82,24 @@ class examenAdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    #Metodo para mostrar la calificacion de un ausuario
     public function show($id)
     {
+        #Consulta para buscar la calificacion del usuario seleccionado
         $consulta = DB::table('calificacions')
         ->join('users','users.id','=','calificacions.id_usuario')
         ->join('examens','examens.id','=','calificacions.id_examen')
         ->where('id_usuario',$id)
         ->get();
-        //dd($consulta);
-        if ($consulta != []) {
+
+        #validación para que no muestre error al buscar la calificación de un usuario que no tiene aún ninguna calificacion
+        #Se pregunta si la conuslta viene vacia, si es así nos retorna a el listado de usuarios con un mensaje de error
+        if (empty($consulta[0])) {
+            alert()->error('El usuario aún no realiza ningun examen')->autoclose(6000);
+            //Session::flash('error','El usuario aún no realiza ningun examen');
+            return redirect()->route('home');
+        }elseif ($consulta[0] != null) {
+            #Se pregunta si la conuslta es diferente de null, si es así busca la calificacion del usuario a travez de su id y se muestra en la vista
             $usuario = User::find($id);
             $aciertos = array();
             $errores = array();
@@ -108,11 +117,7 @@ class examenAdminController extends Controller
             $dataset = $chart->dataset('Mi calificacion', 'pie', [$aciertos, $errores]);
             $dataset->backgroundColor(collect(['#1129BB','#8A0202']));
             $dataset->color(collect(['#1129BB','#8A0202']));
-
             return view('admin.resultadosExamen',compact('consulta','usuario','chart'));
-        }elseif ($consulta == []) {
-            Session::flash('error','El usuario aún no realiza ningun examen');
-            return redirect()->route('home');
         }
     }
 
@@ -122,10 +127,13 @@ class examenAdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    #Metodo que nos retorna a la vista para poder modificar los datos de un examen
     public function edit($id)
     {
-        $imagenes = Imagen::all();
-        return view('admin.examen',compact('imagenes'));
+        #consulta que nos traera los valores del examen a modificar
+        $examen = Examen::find($id);
+        $estado = Estado::get();
+        return view('admin.examenes.editarExamen', compact('examen', 'estado'));
     }
 
     /**
@@ -135,9 +143,31 @@ class examenAdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    #metodo para actualizar los datos del examen
+    public function update(Request $request, $id){
+        #priemero validamos los campos
+        $request->validate([
+            'nombre' => 'required',
+            'descripcion' => 'required',
+            'no_preguntas' => 'required',
+            'fecha' => 'required',
+            'tiempo' => 'required',
+            'id_estado' => 'required',
+        ]);
+        #despues de ser validados
+        //se actualiza el Examen
+        $examen = Examen::find($id);
+        $examen->nombre = $request->get('nombre');
+        $examen->descripcion = $request->get('descripcion');
+        $examen->no_preguntas = $request->get('no_preguntas');
+        $examen->fecha = $request->get('fecha');
+        $examen->tiempo = $request->get('tiempo');
+        $examen->id_estado = $request->get('id_estado');
+        //Se guardan los datos
+        $examen->save();
+        Alert::success('El examen se actualizo correctamente', '¡Éxito!')->autoclose(6000);
+        //Session::flash('message','Examen actualizado correctamente');
+        return redirect()->route('examenesAdmin.index');
     }
 
     /**
@@ -146,8 +176,15 @@ class examenAdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    #metodo para eliminar un examen
     public function destroy($id)
     {
-        //
+        #primero buscamos el examen que se desea eliminar a travez de su id
+        $examen = Examen::find($id);
+        #usamos el metodo delete para destruirlo
+        $examen->delete();
+        Alert::success('El examen se elimino correctamente', '¡Éxito!')->autoclose(6000);
+        //Session::flash('message','Examen eliminado correctamente');
+        return redirect()->route('examenesAdmin.index');
     }
 }

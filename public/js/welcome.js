@@ -7,7 +7,27 @@ $(function(){
         },
     });
   graficar();
+
 });
+
+
+//Motodo para eliminar un examne
+function confirmar() {
+  swal({
+    title: "¿Estas seguro de eliminar este examen?",
+    text: "Una vez eliminado, No podras recuperar esta información!",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  })
+  .then((willDelete) => {
+    if (willDelete) {
+      document.getElementById('myform').submit();
+    } else {
+      swal("Este examen esta seguro!");
+    }
+  });
+}
 
 //Este es el script para el cronometro de los examenes
 var hr = $('#horas').val();
