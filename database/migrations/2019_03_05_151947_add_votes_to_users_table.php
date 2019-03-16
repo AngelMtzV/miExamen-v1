@@ -17,7 +17,7 @@ class AddVotesToUsersTable extends Migration
             $table->string('apellidos');
             $table->string('usuario');
             $table->string('profesion');
-            $table->integer('telefono');
+            $table->string('telefono');
             $table->string('celular');
             $table->string('estado');
             $table->string('genero');

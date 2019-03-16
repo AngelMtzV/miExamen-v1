@@ -42,13 +42,12 @@
                                   <a data-target="#ModalVer-{{$examen->id}}" data-toggle="modal" class="d-none d-sm-inline-block btn btn-sm btn-info shadow-sm text-white botonesTablas" data-toggle="tooltip" data-placement="top" title="Mostrar"><i class="fas fa-eye"></i></a><br><br>
                                   @endif
                                   <a href="{{ route('examenesAdmin.edit',$examen->id) }}" class="d-none d-sm-inline-block btn btn-sm btn-warning shadow-sm botonesTablas" data-toggle="tooltip" data-placement="top" title="Editar"><i class="fas fa-edit"></i></a><br><br>
-                                  <form id="myform" action="{{ Route('examenesAdmin.destroy', $examen->id) }}" method="POST">
+                                  <form id="myform{{$examen->id}}" action="{{ Route('examenesAdmin.destroy', $examen->id) }}" method="POST">
+                                    <input type="text" id="id" value="$examen->id" hidden>
                                     {{ csrf_field() }}
                                       @method('DELETE')
+                                      <button type="button" data-id="<?php echo $examen->id; ?>" class="btn btn-danger btn-sm delete botonesTablas"><i class="fas fa-trash-alt"></i></button>
                                   </form>
-                                  <button class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm botonesTablas delete" type="submit" onclick="return confirmar()" data-toggle="tooltip" data-placement="top" title="Eliminar">
-                                      <i class="fas fa-trash-alt"></i>
-                                    </button>
                                 </td>
                                 @include('admin.modales.verExamen')
                                 @empty
